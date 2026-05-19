@@ -58,7 +58,7 @@ java_setup(){
 python_setup(){
     dnf install python3 gcc python3-devel -y &>>$LOGS_FILE
     VALIDATE $? "Installing Python"
-    
+
     cd /app 
     pip3 install -r requirements.txt &>>$LOGS_FILE
     VALIDATE $? "Installing dependencies"
@@ -73,6 +73,8 @@ app_setup(){
     else
         echo -e "Roboshop user already exist ... $Y SKIPPING $N"
     fi 
+
+#downloading the app
     mkdir -p /app 
     VALIDATE $? "Creating app directory"
 
