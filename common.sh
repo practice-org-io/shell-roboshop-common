@@ -7,7 +7,9 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
+SCRIPT_DIR=$PWD
 START_TIME=$(date +%s)
+MONGODB_HOST=mongodb.lokeshinfo.online
 
 mkdir -p $LOGS_FOLDER
 
@@ -69,4 +71,20 @@ print_total_time(){
     END_TIME=$(date +%s)
     TOTAL_TIME=$(( $END_TIME - $START_TIME))
     echo -e "$(date "+%Y-%m-%d %H:%M:%S") | Script execute in: $G $TOTAL_TIME seconds $N" | tee -a $LOGS_FILE
+}
+
+systemd_setup(){
+    cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service &>>$LOGS_FILE
+    VALIDATE $? "creating systemctl service"
+
+    systemctl daemon-reload
+    systemctl enable $app_name &>>$LOGS_FILE
+    systemctl start $app_name
+    VALIDATE $? "Starting and enabling Catalogue"
+
+}
+
+app_restart(){
+    systemctl restart $app_name
+    VALIDATE $? "Restarting $app_name"
 }
