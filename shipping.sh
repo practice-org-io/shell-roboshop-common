@@ -22,9 +22,5 @@ else
     echo -e "data is already loaded ... $Y SKIPPING $N"
 fi
 
-systemctl enable shipping &>>$LOGS_FILE
-systemctl start shipping
-VALIDATE $? "Enabled and started shipping"
-
 app_restart
 print_total_time
