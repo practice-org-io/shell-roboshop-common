@@ -6,7 +6,7 @@ app_name=catalogue
 check_root
 app_setup
 nodejs_setup
-systemd-setup
+systemd_setup
 
 #loading data into mongodb
 cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo 
